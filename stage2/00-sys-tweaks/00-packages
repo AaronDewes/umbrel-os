@@ -13,7 +13,6 @@ libpam-chksshpwd
 rpi-update
 rsync
 htop
-man-db
 policykit-1
 ssh-import-id
 rng-tools
