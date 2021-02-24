@@ -80,3 +80,17 @@ done <<< "$IMAGES"
 # Copy the entire /var/lib/docker directory to image
 mkdir -p ${ROOTFS_DIR}/var/lib/docker
 rsync --quiet --archive --partial --hard-links --sparse --xattrs /var/lib/docker ${ROOTFS_DIR}/var/lib/
+
+# Delete Microsoft's keys
+
+sudo vim /etc/hosts
+
+Add the following line:
+
+on_chroot << EOF
+echo "0.0.0.0 packages.microsoft.com" >> /etc/hosts
+sudo rm -vf /etc/apt/trusted.gpg.d/microsoft.gpg
+sudo touch /etc/apt/trusted.gpg.d/microsoft.gpg
+sudo chattr +i /etc/apt/trusted.gpg.d/microsoft.gpg
+lsattr /etc/apt/trusted.gpg.d/microsoft.gpg
+EOF
